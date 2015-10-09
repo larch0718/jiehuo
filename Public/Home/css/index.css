@@ -100,8 +100,11 @@ ul{
     background:url(../images/right_arrow.png) 0 0 no-repeat;}
 /*section*/
 .sections{
-    border: 0;
+    /*border: 0;*/
     display: block;
+    margin-right: 10px;
+    border-style:dotted;
+    border-color:cadetblue;
     width:49%;
     height:550px;
     margin-top: 11px;
@@ -124,12 +127,19 @@ ul{
     float: left;
     clear: both}
 
-.sections ul li a:hover{
-    color: #43a2ec;}
+/*.sections ul li a:hover{*/
+    /*text-decoration: none;*/
+   /*}*/
+
+h4 a:hover{
+    color: #43a2ec;
+}
+
 
 /*更多详情*/
 .list_hover{
-    float: right;}
+    margin-left: 250px;
+}
 /*视频推荐*/
 #portfolio {
     background: white;

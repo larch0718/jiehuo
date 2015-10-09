@@ -18,33 +18,51 @@ class ArticleController extends HomeController {
     /* 文档模型频道页 */
 	public function index(){
 		/* 分类信息 */
-		$category = $this->category();
-
+		$category = $this->getlists();
+        $category_id=I('get.category');
 		//频道页只显示模板，默认不读取任何内容
 		//内容可以通过模板标签自行定制
-
 		/* 模板赋值并渲染模板 */
-		$this->assign('category', $category);
+        $this->assign('category',$category_id);
+		$this->assign('data', $category);
 		$this->display($category['template_index']);
 	}
 
+    /**
+     * 发布文章
+     */
+    public function add()
+    {
+        $this->display();
+    }
+
+    /* 文档模型列表页 */
+    public function getlists($p = 1){
+        /* 分类信息 */
+        $category = $this->category();
+        $where=array('category_id'=>$category['id'],'mark'=>0);
+        $list=$this->lists('Document',$where);
+        if(false === $list){
+            $this->error('获取列表数据失败！');
+        }
+        return $list;
+    }
 	/* 文档模型列表页 */
-	public function lists($p = 1){
-		/* 分类信息 */
-		$category = $this->category();
-
-		/* 获取当前分类列表 */
-		$Document = D('Document');
-		$list = $Document->page($p, $category['list_row'])->lists($category['id']);
-		if(false === $list){
-			$this->error('获取列表数据失败！');
-		}
-
-		/* 模板赋值并渲染模板 */
-		$this->assign('category', $category);
-		$this->assign('list', $list);
-		$this->display($category['template_lists']);
-	}
+//	public function lists($p = 1){
+//		/* 分类信息 */
+//		$category = $this->category();
+//
+//		/* 获取当前分类列表 */
+//		$Document = D('Document');
+//		$list = $Document->page($p, $category['list_row'])->lists($category['id']);
+//		if(false === $list){
+//			$this->error('获取列表数据失败！');
+//		}
+//		/* 模板赋值并渲染模板 */
+//		$this->assign('category', $category);
+//		$this->assign('list', $list);
+//		$this->display($category['template_lists']);
+//	}
 
 	/* 文档模型详情页 */
 	public function detail($id = 0, $p = 1){
@@ -92,8 +110,8 @@ class ArticleController extends HomeController {
 		/* 标识正确性检测 */
 		$id = $id ? $id : I('get.category', 0);
 		if(empty($id)){
-			$this->error('没有指定文档分类！');
-		}
+        $this->error('没有指定文档分类！');
+    }
 
 		/* 获取分类信息 */
 		$category = D('Category')->info($id);

@@ -3,22 +3,22 @@
 <head>
 	<meta charset="UTF-8">
 <title><?php echo C('WEB_SITE_TITLE');?></title>
-<link href="/Public/static/bootstrap/css/bootstrap.css" rel="stylesheet">
-<link href="/Public/static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-<link href="/Public/static/bootstrap/css/docs.css" rel="stylesheet">
-<link href="/Public/static/bootstrap/css/onethink.css" rel="stylesheet">
+<link href="/jiehuo/Public/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="/jiehuo/Public/static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="/jiehuo/Public/static/bootstrap/css/docs.css" rel="stylesheet">
+<link href="/jiehuo/Public/static/bootstrap/css/onethink.css" rel="stylesheet">
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
-<script src="/Public/static/bootstrap/js/html5shiv.js"></script>
+<script src="/jiehuo/Public/static/bootstrap/js/html5shiv.js"></script>
 <![endif]-->
 
 <!--[if lt IE 9]>
-<script type="text/javascript" src="/Public/static/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/jiehuo/Public/static/jquery-1.10.2.min.js"></script>
 <![endif]-->
 <!--[if gte IE 9]><!-->
-<script type="text/javascript" src="/Public/static/jquery-2.0.3.min.js"></script>
-<script type="text/javascript" src="/Public/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/jiehuo/Public/static/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="/jiehuo/Public/static/bootstrap/js/bootstrap.min.js"></script>
 <!--<![endif]-->
 <!-- 页面header钩子，一般用于加载插件CSS文件和代码 -->
 <?php echo hook('pageHeader');?>
@@ -31,7 +31,7 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-            <a class="brand" href="<?php echo U('index/index');?>">OneThink</a>
+            <a class="brand" href="<?php echo U('index/index');?>">解惑</a>
             <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -74,8 +74,11 @@
 	
     <header class="jumbotron subhead" id="overview">
         <div class="container">
-            <h2>源自相同起点，演绎不同精彩！</h2>
-            <p class="lead"></p>
+            <?php if(($category) == "code"): ?><h2>最新编程难题&nbsp;&nbsp;&nbsp;最新技术动态！</h2>
+                <p class="lead"></p>
+                <?php else: ?>
+                <h2>写篇好文章&nbsp;&nbsp;&nbsp;感受好时光！</h2>
+                <p class="lead"></p><?php endif; ?>
         </div>
     </header>
 
@@ -91,11 +94,13 @@
             <!--</div>-->
         <!---->
         
-    <div class="span9">
+    <div class="span9" style="  margin-top: 20px;border-style: dashed;border-color: burlywood;width: 1000px;margin-left: 100px;">
         <!-- Contents
         ================================================== -->
-        <section id="contents">
-            <?php $category=D('Category')->getChildrenId($category['id']);$__LIST__ = D('Document')->page(!empty($_GET["p"])?$_GET["p"]:1,10)->lists($category, '`level` DESC,`id` DESC', 1,true); if(is_array($__LIST__)): $i = 0; $__LIST__ = $__LIST__;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$list): $mod = ($i % 2 );++$i;?><div class="">
+
+        <!--<article:list name="list" category="$category['id']" child="true">-->
+        <?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$list): $mod = ($i % 2 );++$i;?><div  style="  width: 700px;margin-left: 80px;">
+                <div class="">
                     <h3><a href="<?php echo U('Article/detail?id='.$list['id']);?>"><?php echo ($list["title"]); ?></a></h3>
                 </div>
                 <div>
@@ -110,11 +115,15 @@
                         <span>阅读( <?php echo ($list["view"]); ?> )</span>&nbsp;&nbsp;
                     </span>
                 </div>
-                <hr/><?php endforeach; endif; else: echo "" ;endif; ?>
-
-        </section>
-    </div>
+                <hr/>
+            </div><?php endforeach; endif; else: echo "" ;endif; ?>
+        <!-- 分页 -->
+        <div class="onethink pagination pagination-right pagination-large" style="margin-right: 20%">
+            <?php echo ($_page); ?>
         </div>
+
+    </div>
+    </div>
 
     </div>
 </div>
@@ -130,20 +139,25 @@
 
 	<!-- 底部 -->
 	
-    <!-- 底部
-    ================================================== -->
-    <footer class="footer">
-      <div class="container">
-          <p> 本站由 <strong><a href="http://www.onethink.cn" target="_blank">OneThink</a></strong> 强力驱动</p>
-      </div>
-    </footer>
+<!-- 底部
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <p> 本站由 <strong><a href="http://www.5151jh.com" target="_blank">解惑网</a></strong> 强力驱动</p>
+        <p>
+            <strong><a href="http://www.5151jh.com" target="_blank">关于解惑</a></strong>&nbsp;&nbsp;
+            <strong><a href="http://www.5151jh.com" target="_blank">web开发者网站</a></strong>&nbsp;&nbsp;
+            <strong><a href="http://www.5151jh.com" target="_blank">中国软件联盟</a></strong>
+        </p>
+    </div>
+</footer>
 
 <script type="text/javascript">
 (function(){
 	var ThinkPHP = window.Think = {
-		"ROOT"   : "", //当前网站地址
-		"APP"    : "", //当前项目地址
-		"PUBLIC" : "/Public", //项目公共目录地址
+		"ROOT"   : "/jiehuo", //当前网站地址
+		"APP"    : "/jiehuo/index.php?s=", //当前项目地址
+		"PUBLIC" : "/jiehuo/Public", //项目公共目录地址
 		"DEEP"   : "<?php echo C('URL_PATHINFO_DEPR');?>", //PATHINFO分割符
 		"MODEL"  : ["<?php echo C('URL_MODEL');?>", "<?php echo C('URL_CASE_INSENSITIVE');?>", "<?php echo C('URL_HTML_SUFFIX');?>"],
 		"VAR"    : ["<?php echo C('VAR_MODULE');?>", "<?php echo C('VAR_CONTROLLER');?>", "<?php echo C('VAR_ACTION');?>"]
@@ -154,7 +168,7 @@
 <!-- 页面footer钩子，一般用于加载插件JS文件和JS代码 -->
 <?php echo hook('pageFooter', 'widget');?>
 <div class="hidden"><!-- 用于加载统计代码等隐藏元素 -->
-	
+    
 </div>
 
 	<!-- /底部 -->

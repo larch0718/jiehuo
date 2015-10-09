@@ -19,12 +19,40 @@ class IndexController extends HomeController {
 	//系统首页
     public function index(){
 
-        $category = D('Category')->getTree();
-        $lists    = D('Document')->lists(null);
-        $this->assign('category',$category);//栏目
-        $this->assign('lists',$lists);//列表
-        $this->assign('page',D('Document')->page);//分页
+        $Document = D('Document');
+        /*文档类型检测*/
+        $category=$this->category('code');
+        $code=$Document->getIndex($category['id']);
+        $category=$this->category('default_blog');
+        $default_blog=$Document->getIndex($category['id']);
+        $this->assign('code',$code);
+        $this->assign('default_blog',$default_blog);
         $this->display();
+    }
+
+
+    /* 文档分类检测 */
+    private function category($id = 0){
+        /* 标识正确性检测 */
+        $id = $id ? $id : I('get.category', 0);
+        if(empty($id)){
+            $this->error('没有指定文档分类！');
+        }
+
+        /* 获取分类信息 */
+        $category = D('Category')->info($id);
+        if($category && 1 == $category['status']){
+            switch ($category['display']) {
+                case 0:
+                    $this->error('该分类禁止显示！');
+                    break;
+                //TODO: 更多分类显示状态判断
+                default:
+                    return $category;
+            }
+        } else {
+            $this->error('分类不存在或被禁用！');
+        }
     }
 
 }

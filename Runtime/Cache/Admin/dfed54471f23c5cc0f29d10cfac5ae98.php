@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title><?php echo ($meta_title); ?>|OneThink管理平台</title>
-    <link href="/Public/favicon.ico" type="image/x-icon" rel="shortcut icon">
-    <link rel="stylesheet" type="text/css" href="/Public/Admin/css/base.css" media="all">
-    <link rel="stylesheet" type="text/css" href="/Public/Admin/css/common.css" media="all">
-    <link rel="stylesheet" type="text/css" href="/Public/Admin/css/module.css">
-    <link rel="stylesheet" type="text/css" href="/Public/Admin/css/style.css" media="all">
-	<link rel="stylesheet" type="text/css" href="/Public/Admin/css/<?php echo (C("COLOR_STYLE")); ?>.css" media="all">
+    <link href="/jiehuo/Public/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="/jiehuo/Public/Admin/css/base.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/jiehuo/Public/Admin/css/common.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/jiehuo/Public/Admin/css/module.css">
+    <link rel="stylesheet" type="text/css" href="/jiehuo/Public/Admin/css/style.css" media="all">
+	<link rel="stylesheet" type="text/css" href="/jiehuo/Public/Admin/css/<?php echo (C("COLOR_STYLE")); ?>.css" media="all">
      <!--[if lt IE 9]>
-    <script type="text/javascript" src="/Public/static/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/jiehuo/Public/static/jquery-1.10.2.min.js"></script>
     <![endif]--><!--[if gte IE 9]><!-->
-    <script type="text/javascript" src="/Public/static/jquery-2.0.3.min.js"></script>
-    <script type="text/javascript" src="/Public/Admin/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="/jiehuo/Public/static/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="/jiehuo/Public/Admin/js/jquery.mousewheel.js"></script>
     <!--<![endif]-->
     
 </head>
@@ -85,7 +85,7 @@
             
 
             
-	<script type="text/javascript" src="/Public/static/uploadify/jquery.uploadify.min.js"></script>
+	<script type="text/javascript" src="/jiehuo/Public/static/uploadify/jquery.uploadify.min.js"></script>
 	<div class="main-title">
 		<h2><?php echo isset($info['id'])?'编辑':'新增';?>分类</h2>
 	</div>
@@ -160,7 +160,7 @@
 						<input type="file" id="upload_picture">
 						<input type="hidden" name="icon" id="icon" value="<?php echo ((isset($info['icon']) && ($info['icon'] !== ""))?($info['icon']):''); ?>"/>
 						<div class="upload-img-box">
-						<?php if(!empty($info['icon'])): ?><div class="upload-pre-item"><img src="<?php echo (get_cover($info["icon"],'path')); ?>"/></div><?php endif; ?>
+						<?php if(!empty($info['icon'])): ?><div class="upload-pre-item"><img src="/jiehuo<?php echo (get_cover($info["icon"],'path')); ?>"/></div><?php endif; ?>
 						</div>
 					</div>
 					<script type="text/javascript">
@@ -168,7 +168,7 @@
 				    /* 初始化上传插件 */
 					$("#upload_picture").uploadify({
 				        "height"          : 30,
-				        "swf"             : "/Public/static/uploadify/uploadify.swf",
+				        "swf"             : "/jiehuo/Public/static/uploadify/uploadify.swf",
 				        "fileObjName"     : "download",
 				        "buttonText"      : "上传图片",
 				        "uploader"        : "<?php echo U('File/uploadPicture',array('session_id'=>session_id()));?>",
@@ -185,7 +185,7 @@
 				    	var src = '';
 				        if(data.status){
 				        	$("#icon").val(data.id);
-				        	src = data.url || '' + data.path;
+				        	src = data.url || '/jiehuo' + data.path;
 				        	$("#icon").parent().find('.upload-img-box').html(
 				        		'<div class="upload-pre-item"><img src="' + src + '"/></div>'
 				        	);
@@ -320,17 +320,17 @@
     <script type="text/javascript">
     (function(){
         var ThinkPHP = window.Think = {
-            "ROOT"   : "", //当前网站地址
-            "APP"    : "/index.php?s=", //当前项目地址
-            "PUBLIC" : "/Public", //项目公共目录地址
+            "ROOT"   : "/jiehuo", //当前网站地址
+            "APP"    : "/jiehuo/index.php?s=", //当前项目地址
+            "PUBLIC" : "/jiehuo/Public", //项目公共目录地址
             "DEEP"   : "<?php echo C('URL_PATHINFO_DEPR');?>", //PATHINFO分割符
             "MODEL"  : ["<?php echo C('URL_MODEL');?>", "<?php echo C('URL_CASE_INSENSITIVE');?>", "<?php echo C('URL_HTML_SUFFIX');?>"],
             "VAR"    : ["<?php echo C('VAR_MODULE');?>", "<?php echo C('VAR_CONTROLLER');?>", "<?php echo C('VAR_ACTION');?>"]
         }
     })();
     </script>
-    <script type="text/javascript" src="/Public/static/think.js"></script>
-    <script type="text/javascript" src="/Public/Admin/js/common.js"></script>
+    <script type="text/javascript" src="/jiehuo/Public/static/think.js"></script>
+    <script type="text/javascript" src="/jiehuo/Public/Admin/js/common.js"></script>
     <script type="text/javascript">
         +function(){
             var $window = $(window), $subnav = $("#subnav"), url;

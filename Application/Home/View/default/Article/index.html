@@ -3,18 +3,25 @@
 <block name="header">
     <header class="jumbotron subhead" id="overview">
         <div class="container">
-            <h2>源自相同起点，演绎不同精彩！</h2>
-            <p class="lead"></p>
+            <eq name="category" value="code">
+                <h2>最新编程难题&nbsp;&nbsp;&nbsp;最新技术动态！</h2>
+                <p class="lead"></p>
+                <else/>
+                <h2>写篇好文章&nbsp;&nbsp;&nbsp;感受好时光！</h2>
+                <p class="lead"></p>
+            </eq>
         </div>
     </header>
 </block>
 
 <block name="body">
-    <div class="span9">
+    <div class="span9" style="  margin-top: 20px;border-style: dashed;border-color: burlywood;width: 1000px;margin-left: 100px;">
         <!-- Contents
         ================================================== -->
-        <section id="contents">
-            <article:list name="list" category="$category['id']" child="true">
+
+        <!--<article:list name="list" category="$category['id']" child="true">-->
+        <volist name="data" id="list">
+            <div  style="  width: 700px;margin-left: 80px;">
                 <div class="">
                     <h3><a href="{:U('Article/detail?id='.$list['id'])}">{$list.title}</a></h3>
                 </div>
@@ -31,9 +38,13 @@
                     </span>
                 </div>
                 <hr/>
-            </article:list>
-
-        </section>
-    </div>
+            </div>
+        </volist>
+        <!-- 分页 -->
+        <div class="onethink pagination pagination-right pagination-large" style="margin-right: 20%">
+            {$_page}
         </div>
+
+    </div>
+    </div>
 </block>

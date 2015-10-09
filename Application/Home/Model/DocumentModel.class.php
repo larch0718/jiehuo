@@ -60,6 +60,14 @@ class DocumentModel extends Model{
 		return $this->field($field)->where($map)->order($order)->select();
 	}
 
+    /**
+     * 获取首页类容
+     */
+    public function getIndex($category,$order = '`id` DESC')
+    {
+        $code=$this->where('category_id='.$category.' and mark=0')->order($order)->limit(5)->select();
+        return $code;
+    }
 	/**
 	 * 计算列表总数
 	 * @param  number  $category 分类ID
